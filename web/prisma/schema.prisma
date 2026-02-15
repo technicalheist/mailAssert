@@ -1,0 +1,117 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl", "debian-openssl-3.0.x", "linux-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int                      @id @default(autoincrement())
+  name          String?
+  email         String                   @unique
+  phone         String?
+  password      String
+  plan          String                   @default("free") // free, pro, enterprise
+  
+  // Notification Preferences
+  notificationEnabled         Boolean @default(true) @map("notification_enabled")
+  notifyOnLogin               Boolean @default(false) @map("notify_on_login")
+  notifyOnNewEmail            Boolean @default(true) @map("notify_on_new_email")
+  notifyOnInboxCreated        Boolean @default(true) @map("notify_on_inbox_created")
+  notifyOnInboxDeleted        Boolean @default(true) @map("notify_on_inbox_deleted")
+  notifyWeeklySummary         Boolean @default(true) @map("notify_weekly_summary")
+  notifyOnPasswordChange      Boolean @default(true) @map("notify_on_password_change")
+  notifyOnApiKeyCreated       Boolean @default(true) @map("notify_on_api_key_created")
+  
+  emailVerified DateTime?                @map("email_verified")
+  createdAt     DateTime                 @default(now()) @map("created_at")
+  updatedAt     DateTime                 @default(now()) @updatedAt @map("updated_at")
+
+  inboxes             Inbox[]
+  apiKeys             ApiKey[]
+  resetTokens         PasswordResetToken[]
+  verificationTokens  EmailVerificationToken[]
+
+  @@map("users")
+}
+
+
+model Inbox {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  name      String?
+  inboxId   String   @unique @map("inbox_id")
+  mailDomain String  @default("mailassert.com") @map("mail_domain")
+  status    String   @default("active") // active, removed
+  removedAt DateTime? @map("removed_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+  emails Email[]
+
+  @@map("inboxes")
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  isUsed    Boolean  @default(false) @map("is_used")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("password_reset_tokens")
+}
+
+model EmailVerificationToken {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  isUsed    Boolean  @default(false) @map("is_used")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("email_verification_tokens")
+}
+
+model ApiKey {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  key       String   @unique
+  name      String?
+  lastUsed  DateTime? @map("last_used")
+  createdAt DateTime @default(now()) @map("created_at")
+  
+  user User @relation(fields: [userId], references: [id])
+  @@map("api_keys")
+}
+
+model Email {
+  id          Int      @id @default(autoincrement())
+  inboxId     Int      @map("inbox_id")
+  messageId   String   @unique @map("message_id")
+  fromAddress String   @map("from_address")
+  toAddress   String   @map("to_address")
+  subject     String?
+  bodyText    String?  @map("body_text") @db.Text
+  bodyHtml    String?  @map("body_html") @db.Text
+  headers     Json?
+  imapUid     Int      @map("imap_uid")
+  receivedAt  DateTime @default(now()) @map("received_at")
+  isRead      Boolean  @default(false) @map("is_read")
+  deletedAt   DateTime? @map("deleted_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  inbox Inbox @relation(fields: [inboxId], references: [id])
+
+  @@index([inboxId])
+  @@index([imapUid, inboxId])
+  @@map("emails")
+}

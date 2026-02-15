@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "users" ADD COLUMN     "notification_enabled" BOOLEAN NOT NULL DEFAULT true;
