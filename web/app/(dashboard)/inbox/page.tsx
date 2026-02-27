@@ -17,8 +17,8 @@ export default async function InboxPage() {
         redirect("/inboxes")
     }
 
-    // Fetch initial emails (defaults to first inbox)
-    const res = await checkInboxAction()
+    // Fetch initial emails (defaults to first inbox), bypassing blocking sync to improve load speed
+    const res = await checkInboxAction(undefined, 0, undefined, true)
     const initialEmails = res.success && res.emails ? res.emails : []
 
     // Get active inbox ID from response or default to first

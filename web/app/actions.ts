@@ -19,7 +19,7 @@ export async function sendEmailAction(formData: FormData) {
     return result
 }
 
-export async function checkInboxAction(inboxIdOverride?: string, page: number = 0, search?: string) {
+export async function checkInboxAction(inboxIdOverride?: string, page: number = 0, search?: string, skipSync: boolean = false) {
     const session = await auth()
     if (!session?.user?.email) {
         return { success: false, error: 'Unauthorized' }
@@ -27,10 +27,16 @@ export async function checkInboxAction(inboxIdOverride?: string, page: number = 
 
     // Trigger IMAP sync (only on first page load)
     if (page === 0) {
-        try {
-            await syncEmails();
-        } catch (error) {
-            console.error("IMAP Sync failed:", error);
+        if (skipSync) {
+            // Fire and forget to prevent blocking initial page loads
+            syncEmails().catch(error => console.error("Background IMAP Sync failed:", error));
+        } else {
+            // Await directly (useful when user manually clicks Refresh)
+            try {
+                await syncEmails();
+            } catch (error) {
+                console.error("IMAP Sync failed:", error);
+            }
         }
     }
 
