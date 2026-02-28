@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
-import { logout } from '@/app/actions/auth'
+import { signOut } from 'next-auth/react'
 
 export default function DashboardHeader({ user }: { user?: any }) {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+    const [isLoggingOut, setIsLoggingOut] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
 
     // Close dropdown when clicking outside
@@ -70,10 +71,19 @@ export default function DashboardHeader({ user }: { user?: any }) {
 
                             <div className="border-t border-gray-100 py-1">
                                 <button
-                                    onClick={() => logout()}
-                                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                                    onClick={async () => {
+                                        setIsLoggingOut(true)
+                                        setIsDropdownOpen(false)
+                                        // Use redirect:false to prevent next-auth from computing
+                                        // callbackUrl from NEXTAUTH_URL (which may be localhost).
+                                        // Manually redirect using current origin instead.
+                                        await signOut({ redirect: false })
+                                        window.location.href = '/login'
+                                    }}
+                                    disabled={isLoggingOut}
+                                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50"
                                 >
-                                    Sign out
+                                    {isLoggingOut ? 'Signing out...' : 'Sign out'}
                                 </button>
                             </div>
                         </div>

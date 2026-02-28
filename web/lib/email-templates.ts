@@ -563,3 +563,97 @@ export function weeklySummaryTemplate(data: {
 
     return emailTemplate(content, 'Your Weekly Summary - MailAssert')
 }
+
+// 9. Email Verification Template
+export function emailVerificationTemplate(data: {
+    userName: string
+    verificationUrl: string
+}) {
+    const content = `
+        <div style="text-align: center; margin-bottom: 30px;">
+            <div style="display: inline-block; width: 80px; height: 80px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+        </div>
+        
+        <h2 style="margin: 0 0 20px; color: #111827; font-size: 24px; font-weight: bold; text-align: center;">
+            Verify Your Email
+        </h2>
+        
+        <p style="margin: 0 0 20px; color: #4b5563; font-size: 16px; line-height: 1.6;">
+            Hello <strong>${data.userName}</strong>,
+        </p>
+        
+        <p style="margin: 0 0 30px; color: #4b5563; font-size: 16px; line-height: 1.6;">
+            Thank you for registering with MailAssert. Please verify your email address to activate your account.
+        </p>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="${data.verificationUrl}" style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">
+                Verify Email Address
+            </a>
+        </div>
+        
+        <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px; text-align: center;">
+            Or copy and paste this link into your browser:
+        </p>
+        <p style="margin: 0 0 30px; color: #3b82f6; font-size: 12px; word-break: break-all; text-align: center; font-family: monospace;">
+            ${data.verificationUrl}
+        </p>
+        
+        <p style="margin: 0; color: #9ca3af; font-size: 14px; text-align: center;">
+            This link will expire in 24 hours.
+        </p>
+    `
+
+    return emailTemplate(content, 'Verify Your Email - MailAssert')
+}
+
+// 10. Password Reset Template
+export function passwordResetTemplate(data: {
+    userName: string
+    resetUrl: string
+}) {
+    const content = `
+        <div style="text-align: center; margin-bottom: 30px;">
+            <div style="display: inline-block; width: 80px; height: 80px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+                    <path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                </svg>
+            </div>
+        </div>
+        
+        <h2 style="margin: 0 0 20px; color: #111827; font-size: 24px; font-weight: bold; text-align: center;">
+            Reset Your Password
+        </h2>
+        
+        <p style="margin: 0 0 20px; color: #4b5563; font-size: 16px; line-height: 1.6;">
+            Hello <strong>${data.userName}</strong>,
+        </p>
+        
+        <p style="margin: 0 0 30px; color: #4b5563; font-size: 16px; line-height: 1.6;">
+            We received a request to reset your MailAssert account password. If you didn't make this request, you can safely ignore this email.
+        </p>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="${data.resetUrl}" style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 16px;">
+                Reset Password
+            </a>
+        </div>
+        
+        <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px; text-align: center;">
+            Or copy and paste this link into your browser:
+        </p>
+        <p style="margin: 0 0 30px; color: #3b82f6; font-size: 12px; word-break: break-all; text-align: center; font-family: monospace;">
+            ${data.resetUrl}
+        </p>
+        
+        <p style="margin: 0; color: #9ca3af; font-size: 14px; text-align: center;">
+            This link will expire in 2 hours.
+        </p>
+    `
+
+    return emailTemplate(content, 'Reset Your Password - MailAssert')
+}

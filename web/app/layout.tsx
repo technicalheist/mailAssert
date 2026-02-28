@@ -71,6 +71,7 @@ export const metadata: Metadata = {
 }
 
 import ToasterClient from '@/components/ToasterClient'
+import SessionProviderWrapper from '@/components/SessionProviderWrapper'
 
 export default function RootLayout({
   children,
@@ -80,8 +81,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={outfit.className}>
-        <ToasterClient />
-        {children}
+        <SessionProviderWrapper>
+          <ToasterClient />
+          {children}
+        </SessionProviderWrapper>
       </body>
     </html>
   )

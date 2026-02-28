@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import crypto from 'crypto';
 import { sendEmail } from '@/lib/mail';
+import { passwordResetTemplate } from '@/lib/email-templates';
 
 export async function POST(request: Request) {
     try {
@@ -35,18 +36,21 @@ export async function POST(request: Request) {
         });
 
         // Send Email
-        const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${resetToken}`;
-        const emailContent = `
-            Click the link below to reset your password:
-            ${resetUrl}
+        const host = request.headers.get('host');
+        const protocol = request.headers.get('x-forwarded-proto') || 'http';
+        const baseUrl = host ? `${protocol}://${host}` : (process.env.NEXTAUTH_URL || 'http://localhost:3000');
 
-            If you did not request this, please ignore this email.
-        `;
+        const resetUrl = `${baseUrl}/reset-password?token=${resetToken}`;
+
+        const emailHtml = passwordResetTemplate({
+            userName: user.name || user.email.split('@')[0],
+            resetUrl
+        });
 
         await sendEmail({
             to: email,
-            subject: 'Password Reset Request',
-            text: emailContent,
+            subject: 'Reset Your Password - MailAssert',
+            html: emailHtml,
         });
 
         return NextResponse.json({ success: true, message: 'Reset email sent.' });

@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import { sendEmail } from '@/lib/mail';
+import { emailVerificationTemplate } from '@/lib/email-templates';
 
 export async function POST(request: Request) {
     try {
@@ -55,28 +56,21 @@ export async function POST(request: Request) {
         });
 
         // Send verification email
-        const verificationUrl = `${process.env.NEXTAUTH_URL}/verify-email?token=${verificationToken}`;
-        const emailContent = `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                <h2 style="color: #4F46E5;">Welcome to MailAssert!</h2>
-                <p>Hi ${name || 'there'},</p>
-                <p>Thank you for registering with MailAssert. Please verify your email address to activate your account.</p>
-                <p style="margin: 30px 0;">
-                    <a href="${verificationUrl}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 30px; text-decoration: none; border-radius: 8px; display: inline-block;">
-                        Verify Email Address
-                    </a>
-                </p>
-                <p style="color: #666; font-size: 14px;">Or copy and paste this link into your browser:</p>
-                <p style="color: #666; font-size: 12px; word-break: break-all;">${verificationUrl}</p>
-                <p style="color: #666; font-size: 14px; margin-top: 30px;">This link will expire in 24 hours.</p>
-                <p style="color: #666; font-size: 14px;">If you didn't create an account, please ignore this email.</p>
-            </div>
-        `;
+        const host = request.headers.get('host');
+        const protocol = request.headers.get('x-forwarded-proto') || 'http';
+        const baseUrl = host ? `${protocol}://${host}` : (process.env.NEXTAUTH_URL || 'http://localhost:3000');
+
+        const verificationUrl = `${baseUrl}/verify-email?token=${verificationToken}`;
+
+        const emailHtml = emailVerificationTemplate({
+            userName: name || email.split('@')[0],
+            verificationUrl
+        });
 
         await sendEmail({
             to: email,
             subject: 'Verify Your Email - MailAssert',
-            html: emailContent,
+            html: emailHtml,
         });
 
         return NextResponse.json({

@@ -1,10 +1,25 @@
 'use client'
 
-import { useActionState } from 'react' // React 19 / Next.js 14+ specific hook
+import { useActionState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { authenticate } from '@/app/actions/auth'
 
 export default function LoginPage() {
-    const [errorMessage, formAction, isPending] = useActionState(authenticate, undefined)
+    const router = useRouter()
+    const [actionResult, formAction, isPending] = useActionState(authenticate, undefined)
+
+    // Handle redirect sentinel returned from the server action.
+    // We can't use redirectTo inside signIn (server action) because it throws NEXT_REDIRECT,
+    // which leaves useActionState's isPending=true forever — the infinite spinner bug.
+    useEffect(() => {
+        if (actionResult?.startsWith('REDIRECT:')) {
+            const path = actionResult.replace('REDIRECT:', '')
+            router.push(path)
+        }
+    }, [actionResult, router])
+
+    const errorMessage = actionResult?.startsWith('REDIRECT:') ? undefined : actionResult
+    const isRedirecting = actionResult?.startsWith('REDIRECT:')
 
     return (
         <div className="h-screen w-full flex overflow-hidden font-sans bg-white">
@@ -45,8 +60,8 @@ export default function LoginPage() {
                             <div className="text-red-500 text-sm font-medium">{errorMessage}</div>
                         )}
 
-                        <button type="submit" disabled={isPending} className="w-full py-3.5 px-4 rounded-xl text-white font-semibold text-sm shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40 transform hover:-translate-y-0.5 transition-all duration-200 primary-gradient-bg disabled:opacity-50 disabled:cursor-not-allowed">
-                            {isPending ? 'Signing in...' : 'Continue'}
+                        <button type="submit" disabled={isPending || !!isRedirecting} className="w-full py-3.5 px-4 rounded-xl text-white font-semibold text-sm shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40 transform hover:-translate-y-0.5 transition-all duration-200 primary-gradient-bg disabled:opacity-50 disabled:cursor-not-allowed">
+                            {isRedirecting ? 'Redirecting...' : isPending ? 'Signing in...' : 'Continue'}
                         </button>
                     </form>
 

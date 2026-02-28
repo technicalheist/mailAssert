@@ -78,10 +78,35 @@ export async function resendVerificationEmail(prevState: any, formData: FormData
             },
         })
 
-        // TODO: Send email with verification link
-        // For now, we'll just log it
-        const verificationUrl = `${process.env.NEXTAUTH_URL}/verify-email?token=${token}`
-        console.log("Verification URL:", verificationUrl)
+        // Send email with verification link
+        const { sendEmail } = await import('@/lib/mail')
+        const { emailVerificationTemplate } = await import('@/lib/email-templates')
+
+        // Use current request domain if available, otherwise fallback to NEXTAUTH_URL
+        let baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+        try {
+            const { headers } = await import('next/headers')
+            const host = (await headers()).get('host')
+            const protocol = (await headers()).get('x-forwarded-proto') || 'http'
+            if (host) {
+                baseUrl = `${protocol}://${host}`
+            }
+        } catch (e) {
+            console.error('Failed to get headers for dynamic URL:', e)
+        }
+
+        const verificationUrl = `${baseUrl}/verify-email?token=${token}`
+
+        const emailHtml = emailVerificationTemplate({
+            userName: user.name || user.email.split('@')[0],
+            verificationUrl
+        })
+
+        await sendEmail({
+            to: user.email,
+            subject: 'Verify Your Email - MailAssert',
+            html: emailHtml,
+        })
 
         revalidatePath("/profile")
         return { success: "Verification email sent! Check your inbox." }
