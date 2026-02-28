@@ -116,21 +116,25 @@ export default function LoginPage() {
 
                     {/* Value Prop Text */}
                     <div className="text-center lg:text-left space-y-4">
-                        <h2 className="text-3xl font-bold text-white leading-tight">Validate emails with <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">unmatched precision</span></h2>
+                        <h2 className="text-3xl font-bold text-white leading-tight">Test emails with <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">confidence & speed</span></h2>
                         <p className="text-indigo-200 text-lg leading-relaxed">
-                            Ensure your mailing lists are clean and your sender reputation remains high with our enterprise-grade validation infrastructure.
+                            Catch broken email flows before your users do. MailAssert gives you a real inbox to test against — no mail traps, no guessing.
                         </p>
                     </div>
 
-                    {/* Trust Indicators */}
-                    <div className="pt-8 border-t border-white/10 flex gap-8 items-center opacity-70">
-                        <div className="text-white font-semibold flex items-center gap-2">
-                            <span className="text-2xl">10k+</span>
-                            <span className="text-xs text-indigo-300 font-normal uppercase tracking-wider">Companies <br />Trust Us</span>
+                    {/* Feature Highlights */}
+                    <div className="pt-8 border-t border-white/10 flex flex-col gap-3 opacity-90">
+                        <div className="flex items-center gap-3 text-indigo-200 text-sm">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                            Free to start — no credit card needed
                         </div>
-                        <div className="text-white font-semibold flex items-center gap-2">
-                            <span className="text-2xl">1B+</span>
-                            <span className="text-xs text-indigo-300 font-normal uppercase tracking-wider">Emails <br />Verified</span>
+                        <div className="flex items-center gap-3 text-indigo-200 text-sm">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                            Real inbox, real delivery — powered by Cloudflare
+                        </div>
+                        <div className="flex items-center gap-3 text-indigo-200 text-sm">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                            Simple REST API — integrate in minutes
                         </div>
                     </div>
 

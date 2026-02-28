@@ -16,7 +16,7 @@ export default function LandingPage() {
                         {/* Badge */}
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-sm font-medium mb-4 backdrop-blur-sm">
                             <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
-                            Trusted by 10,000+ developers worldwide
+                            Built for developers who care about email quality
                         </div>
 
                         {/* Heading */}
@@ -49,19 +49,19 @@ export default function LandingPage() {
                             </Link>
                         </div>
 
-                        {/* Stats */}
+                        {/* Core Capabilities */}
                         <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
                             <div>
-                                <div className="text-3xl font-bold text-white mb-1">99.9%</div>
-                                <div className="text-sm text-gray-400">Uptime</div>
+                                <div className="text-3xl font-bold text-white mb-1">Free</div>
+                                <div className="text-sm text-gray-400">To Get Started</div>
                             </div>
                             <div>
                                 <div className="text-3xl font-bold text-white mb-1">&lt;100ms</div>
-                                <div className="text-sm text-gray-400">Response Time</div>
+                                <div className="text-sm text-gray-400">API Response</div>
                             </div>
                             <div>
-                                <div className="text-3xl font-bold text-white mb-1">10M+</div>
-                                <div className="text-sm text-gray-400">Emails Tested</div>
+                                <div className="text-3xl font-bold text-white mb-1">REST</div>
+                                <div className="text-sm text-gray-400">Simple API</div>
                             </div>
                         </div>
                     </div>
@@ -176,129 +176,99 @@ export default function LandingPage() {
 
                     <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                         {/* Free Plan */}
-                        <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
+                        <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 relative transform scale-105 shadow-2xl shadow-blue-500/30">
+                            <div className="absolute top-0 right-0 bg-green-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">
+                                AVAILABLE NOW
+                            </div>
                             <h3 className="text-2xl font-bold text-white mb-2">Free</h3>
                             <div className="text-4xl font-bold text-white mb-6">
-                                $0<span className="text-lg text-gray-400">/month</span>
+                                $0<span className="text-lg text-blue-100">/month</span>
                             </div>
                             <ul className="space-y-4 mb-8">
-                                <li className="flex items-center gap-3 text-gray-300">
-                                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
+                                <li className="flex items-center gap-3 text-white">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                                     1 Inbox ID
                                 </li>
-                                <li className="flex items-center gap-3 text-gray-300">
-                                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
+                                <li className="flex items-center gap-3 text-white">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                                     1,000 emails/month
                                 </li>
-                                <li className="flex items-center gap-3 text-gray-300">
-                                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
+                                <li className="flex items-center gap-3 text-white">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                                     24h retention
                                 </li>
-                                <li className="flex items-center gap-3 text-gray-300">
-                                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    API Access
-                                </li>
-                            </ul>
-                            <Link href="/register" className="block w-full py-3 px-6 text-center bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-xl transition-colors">
-                                Get Started
-                            </Link>
-                        </div>
-
-                        {/* Pro Plan */}
-                        <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 relative transform scale-105 shadow-2xl shadow-blue-500/30">
-                            <div className="absolute top-0 right-0 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">
-                                POPULAR
-                            </div>
-                            <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
-                            <div className="text-4xl font-bold text-white mb-6">
-                                $29<span className="text-lg text-blue-100">/month</span>
-                            </div>
-                            <ul className="space-y-4 mb-8">
                                 <li className="flex items-center gap-3 text-white">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    5 Inbox IDs
-                                </li>
-                                <li className="flex items-center gap-3 text-white">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    50,000 emails/month
-                                </li>
-                                <li className="flex items-center gap-3 text-white">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    7 days retention
-                                </li>
-                                <li className="flex items-center gap-3 text-white">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    Priority Support
-                                </li>
-                                <li className="flex items-center gap-3 text-white">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    Webhooks
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                                    REST API Access
                                 </li>
                             </ul>
                             <Link href="/register" className="block w-full py-3 px-6 text-center bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors">
-                                Start Free Trial
+                                Get Started Free
                             </Link>
                         </div>
 
-                        {/* Enterprise Plan */}
-                        <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
-                            <h3 className="text-2xl font-bold text-white mb-2">Enterprise</h3>
+                        {/* Pro Plan — Coming Soon */}
+                        <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 relative opacity-75">
+                            <div className="absolute top-0 right-0 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">
+                                COMING SOON
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
                             <div className="text-4xl font-bold text-white mb-6">
-                                Custom
+                                TBD
                             </div>
                             <ul className="space-y-4 mb-8">
-                                <li className="flex items-center gap-3 text-gray-300">
-                                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    Unlimited Inbox IDs
+                                <li className="flex items-center gap-3 text-gray-400">
+                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Multiple Inbox IDs
                                 </li>
-                                <li className="flex items-center gap-3 text-gray-300">
-                                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    Custom volume
+                                <li className="flex items-center gap-3 text-gray-400">
+                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Higher email limits
                                 </li>
-                                <li className="flex items-center gap-3 text-gray-300">
-                                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    Custom retention
+                                <li className="flex items-center gap-3 text-gray-400">
+                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Extended retention
                                 </li>
-                                <li className="flex items-center gap-3 text-gray-300">
-                                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    SLA Guarantee
-                                </li>
-                                <li className="flex items-center gap-3 text-gray-300">
-                                    <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                    Dedicated Support
+                                <li className="flex items-center gap-3 text-gray-400">
+                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Webhooks
                                 </li>
                             </ul>
-                            <Link href="/contact" className="block w-full py-3 px-6 text-center bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-xl transition-colors">
-                                Contact Sales
-                            </Link>
+                            <button disabled className="block w-full py-3 px-6 text-center bg-gray-700 text-gray-400 font-semibold rounded-xl cursor-not-allowed">
+                                Coming Soon
+                            </button>
+                        </div>
+
+                        {/* Enterprise Plan — Coming Soon */}
+                        <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8 relative opacity-75">
+                            <div className="absolute top-0 right-0 bg-yellow-400 text-gray-900 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">
+                                COMING SOON
+                            </div>
+                            <h3 className="text-2xl font-bold text-white mb-2">Enterprise</h3>
+                            <div className="text-4xl font-bold text-white mb-6">
+                                TBD
+                            </div>
+                            <ul className="space-y-4 mb-8">
+                                <li className="flex items-center gap-3 text-gray-400">
+                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Unlimited Inbox IDs
+                                </li>
+                                <li className="flex items-center gap-3 text-gray-400">
+                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Custom volume
+                                </li>
+                                <li className="flex items-center gap-3 text-gray-400">
+                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Custom retention
+                                </li>
+                                <li className="flex items-center gap-3 text-gray-400">
+                                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Dedicated support
+                                </li>
+                            </ul>
+                            <button disabled className="block w-full py-3 px-6 text-center bg-gray-700 text-gray-400 font-semibold rounded-xl cursor-not-allowed">
+                                Coming Soon
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -316,7 +286,7 @@ export default function LandingPage() {
                                 Ready to simplify email testing?
                             </h2>
                             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                                Join thousands of developers who trust MailAssert for reliable email testing
+                                Start testing your email flows today — no credit card required, no time limit on the free plan.
                             </p>
                             <Link
                                 href="/register"

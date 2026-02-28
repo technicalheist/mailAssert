@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     default: 'MailAssert - Email Testing Made Simple',
     template: '%s | MailAssert'
   },
-  description: 'The most reliable email testing platform for developers. Get instant disposable inboxes, catch emails in real-time, and validate your email logic with our powerful API. Trusted by 10,000+ developers worldwide.',
+  description: 'Test email flows, catch delivery issues, and validate your email logic with real disposable inboxes and a simple REST API. Built for developers.',
   keywords: ['email testing', 'disposable email', 'email validation', 'temporary email', 'email API', 'SMTP testing', 'email debugging', 'developer tools'],
   authors: [{ name: 'MailAssert' }],
   creator: 'MailAssert',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'MailAssert - Email Testing Made Simple',
-    description: 'The most reliable email testing platform for developers. Get instant disposable inboxes, catch emails in real-time, and validate your email logic with our powerful API.',
+    description: 'Test email flows, catch delivery issues, and validate your email logic with real disposable inboxes and a simple REST API.',
     url: '/',
     siteName: 'MailAssert',
     locale: 'en_US',

@@ -184,10 +184,26 @@ export default function RegisterPage() {
 
                     {/* Value Prop Text */}
                     <div className="text-center lg:text-left space-y-4">
-                        <h2 className="text-3xl font-bold text-white leading-tight">Validate emails with <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">unmatched precision</span></h2>
+                        <h2 className="text-3xl font-bold text-white leading-tight">Your inbox is ready <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">in seconds</span></h2>
                         <p className="text-indigo-200 text-lg leading-relaxed">
-                            Ensure your mailing lists are clean and your sender reputation remains high with our enterprise-grade validation infrastructure.
+                            Sign up and get a real email inbox instantly. Send test emails, verify delivery, and catch bugs in your email flows — all from one simple dashboard.
                         </p>
+                    </div>
+
+                    {/* Feature Highlights */}
+                    <div className="pt-8 border-t border-white/10 flex flex-col gap-3 opacity-90">
+                        <div className="flex items-center gap-3 text-indigo-200 text-sm">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                            Free plan — no credit card, no expiry
+                        </div>
+                        <div className="flex items-center gap-3 text-indigo-200 text-sm">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                            Real inbox powered by Cloudflare Email Routing
+                        </div>
+                        <div className="flex items-center gap-3 text-indigo-200 text-sm">
+                            <svg className="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                            REST API access from day one
+                        </div>
                     </div>
 
                 </div>
