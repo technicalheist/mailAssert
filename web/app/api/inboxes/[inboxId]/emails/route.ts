@@ -7,9 +7,29 @@ export async function GET(
     { params }: { params: Promise<{ inboxId: string }> }
 ) {
     const { inboxId } = await params;
-    const session = await auth();
 
-    if (!session || !session.user || !session.user.id) {
+    let userId: number | null = null;
+    const session = await auth();
+    if (session && session.user && session.user.id) {
+        userId = parseInt(session.user.id);
+    } else {
+        const authHeader = request.headers.get('authorization');
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            const apiKey = authHeader.substring(7);
+            const validKey = await prisma.apiKey.findUnique({
+                where: { key: apiKey }
+            });
+            if (validKey) {
+                userId = validKey.userId;
+                await prisma.apiKey.update({
+                    where: { id: validKey.id },
+                    data: { lastUsed: new Date() }
+                });
+            }
+        }
+    }
+
+    if (!userId) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -18,7 +38,7 @@ export async function GET(
             where: { inboxId }
         });
 
-        if (!inbox || inbox.userId !== parseInt(session.user.id)) {
+        if (!inbox || inbox.userId !== userId) {
             return NextResponse.json({ error: "Inbox not found or access denied" }, { status: 404 });
         }
 
