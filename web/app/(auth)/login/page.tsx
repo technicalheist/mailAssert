@@ -28,11 +28,7 @@ export default function LoginPage() {
                 <div className="w-full max-w-md space-y-8">
                     {/* Logo */}
                     <a href="/" className="flex items-center gap-2 mb-10 hover:opacity-80 transition-opacity">
-                        <div className="w-10 h-10 rounded-xl primary-gradient-bg flex items-center justify-center text-white shadow-lg shadow-purple-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
+                        <img src="/logo.png" alt="MailAssert Logo" className="w-10 h-10 rounded-xl shadow-lg shadow-purple-500/20 object-cover" />
                         <span className="text-2xl font-bold text-gray-900 tracking-tight">MailAssert</span>
                     </a>
 
