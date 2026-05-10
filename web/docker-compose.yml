@@ -1,0 +1,70 @@
+services:
+  # -------------------------------------------------------------------------
+  # Database Service (PostgreSQL)
+  # -------------------------------------------------------------------------
+  postgres:
+    image: postgres:15
+    container_name: mailassert-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-mailassert}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-user} -d ${DB_NAME:-mailassert}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    # -------------------------------------------------------------------------
+    # Next.js Application Service (Development)
+    # -------------------------------------------------------------------------
+    # web:
+    #   container_name: mailassert-web
+    #   build:
+    #     context: ./web
+    #     dockerfile: Dockerfile
+    #     target: dev
+    # -----------------------------------------------------------------------
+    # 1. DEVELOPMENT SCRIPT (Active)
+    #    - Mounts source code for hot-reloading
+    #    - Runs 'npm run dev'
+    # -----------------------------------------------------------------------
+    # command: npm run dev
+    # volumes:
+    #   - ./web:/app
+    #   - /app/node_modules
+    # ports:
+    #   - "${APP_PORT:-4091}:3000"
+    # environment:
+    #   - DATABASE_URL=postgresql://${DB_USER:-user}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-mailassert}
+    #   - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-your-secure-secret}
+    #   - AUTH_TRUST_HOST=true
+    # depends_on:
+    #   postgres:
+    #     condition: service_healthy
+    # -------------------------------------------------------------------------
+    # Next.js Production Service
+    # -------------------------------------------------------------------------
+  web-prod:
+    container_name: mailassert-web-prod
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      target: runner
+    command: node server.js
+    ports:
+      - "${PROD_PORT:-4090}:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://${DB_USER:-user}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-mailassert}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-your-secure-secret}
+      - AUTH_TRUST_HOST=true
+      - HOSTNAME=0.0.0.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
