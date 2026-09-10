@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
       POSTGRES_DB: ${DB_NAME:-mailassert}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-user} -d ${DB_NAME:-mailassert}" ]
       interval: 5s
@@ -49,13 +49,14 @@ services:
     # -------------------------------------------------------------------------
   web-prod:
     container_name: mailassert-web-prod
+    restart: always
     build:
       context: ./web
       dockerfile: Dockerfile
       target: runner
     command: node server.js
     ports:
-      - "${PROD_PORT:-4090}:3000"
+      - "${PROD_PORT:-4009}:3000"
     environment:
       - NODE_ENV=production
       - DATABASE_URL=postgresql://${DB_USER:-user}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-mailassert}
@@ -66,5 +67,3 @@ services:
       postgres:
         condition: service_healthy
 
-volumes:
-  postgres_data:
