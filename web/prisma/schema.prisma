@@ -35,7 +35,7 @@ model User {
   resetTokens         PasswordResetToken[]
   verificationTokens  EmailVerificationToken[]
 
-  @@map("users")
+  @@map("ma_users")
 }
 
 
@@ -53,7 +53,7 @@ model Inbox {
   user User @relation(fields: [userId], references: [id])
   emails Email[]
 
-  @@map("inboxes")
+  @@map("ma_inboxes")
 }
 
 model PasswordResetToken {
@@ -65,7 +65,7 @@ model PasswordResetToken {
 
   user User @relation(fields: [userId], references: [id])
 
-  @@map("password_reset_tokens")
+  @@map("ma_password_reset_tokens")
 }
 
 model EmailVerificationToken {
@@ -78,7 +78,7 @@ model EmailVerificationToken {
 
   user User @relation(fields: [userId], references: [id])
 
-  @@map("email_verification_tokens")
+  @@map("ma_email_verification_tokens")
 }
 
 model ApiKey {
@@ -90,7 +90,7 @@ model ApiKey {
   createdAt DateTime @default(now()) @map("created_at")
   
   user User @relation(fields: [userId], references: [id])
-  @@map("api_keys")
+  @@map("ma_api_keys")
 }
 
 model Email {
@@ -113,5 +113,5 @@ model Email {
 
   @@index([inboxId])
   @@index([imapUid, inboxId])
-  @@map("emails")
+  @@map("ma_emails")
 }
