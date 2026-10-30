@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { nextId } from "@/lib/ids";
 import crypto from 'crypto';
 import { sendEmail } from '@/lib/mail';
 import { passwordResetTemplate } from '@/lib/email-templates';
@@ -29,6 +30,7 @@ export async function POST(request: Request) {
         // Create DB record
         await prisma.passwordResetToken.create({
             data: {
+                id: await nextId("passwordResetToken"),
                 userId: user.id,
                 token: resetToken,
                 expiresAt: new Date(Date.now() + 3600 * 1000), // 1 hour

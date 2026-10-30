@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth"
 import prisma from "@/lib/prisma"
+import { nextId } from "@/lib/ids";
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
 
@@ -72,6 +73,7 @@ export async function resendVerificationEmail(prevState: any, formData: FormData
 
         await prisma.emailVerificationToken.create({
             data: {
+                id: await nextId("emailVerificationToken"),
                 userId: user.id,
                 token,
                 expiresAt,

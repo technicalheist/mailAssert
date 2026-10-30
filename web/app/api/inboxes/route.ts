@@ -1,6 +1,7 @@
 
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
+import { nextId } from "@/lib/ids";
 import { createInboxResources } from "@/lib/cloudflare";
 import { NextResponse } from "next/server";
 
@@ -135,6 +136,7 @@ export async function POST(request: Request) {
         // 2. Create DB Record
         const newInbox = await prisma.inbox.create({
             data: {
+                id: await nextId("inbox"),
                 userId: parseInt(session.user.id),
                 inboxId: inboxId,
                 mailDomain: process.env.MAIL_DOMAIN || 'mailassert.com',

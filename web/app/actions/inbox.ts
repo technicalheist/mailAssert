@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
+import { nextId } from "@/lib/ids";
 import { createInboxResources, removeInboxResources } from "@/lib/cloudflare";
 import { revalidatePath } from "next/cache";
 
@@ -53,6 +54,7 @@ export async function createInbox(formData: FormData) {
         // 2. Create DB Record
         await prisma.inbox.create({
             data: {
+                id: await nextId("inbox"),
                 userId: user.id,
                 name,
                 inboxId,

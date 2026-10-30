@@ -3,6 +3,7 @@
 import { signIn, signOut } from '@/auth'
 import { AuthError } from 'next-auth'
 import prisma from '@/lib/prisma'
+import { nextId } from "@/lib/ids";
 import bcrypt from 'bcrypt'
 
 export async function authenticate(prevState: string | undefined, formData: FormData) {
@@ -93,12 +94,14 @@ export async function register(prevState: string | undefined, formData: FormData
     try {
         const newUser = await prisma.user.create({
             data: {
+                id: await nextId("user"),
                 name: name || null,
                 email,
                 phone: phone || null,
                 password: hashedPassword,
                 inboxes: {
                     create: {
+                        id: await nextId("inbox"),
                         inboxId: Math.random().toString(36).substring(2, 8),
                         name: "Main Inbox",
                     },
@@ -112,6 +115,7 @@ export async function register(prevState: string | undefined, formData: FormData
 
         await prisma.emailVerificationToken.create({
             data: {
+                id: await nextId("emailVerificationToken"),
                 userId: newUser.id,
                 token: verificationToken,
                 expiresAt: new Date(Date.now() + 24 * 3600 * 1000), // 24 hours

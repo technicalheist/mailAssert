@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { nextId } from "@/lib/ids";
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import { sendEmail } from '@/lib/mail';
@@ -26,6 +27,7 @@ export async function POST(request: Request) {
 
         const newUser = await prisma.user.create({
             data: {
+                id: await nextId("user"),
                 name: name || null,
                 email,
                 phone: phone || null,
@@ -38,6 +40,7 @@ export async function POST(request: Request) {
 
         await prisma.inbox.create({
             data: {
+                id: await nextId("inbox"),
                 userId: newUser.id,
                 inboxId,
                 name: "Main Inbox",
@@ -49,6 +52,7 @@ export async function POST(request: Request) {
 
         await prisma.emailVerificationToken.create({
             data: {
+                id: await nextId("emailVerificationToken"),
                 userId: newUser.id,
                 token: verificationToken,
                 expiresAt: new Date(Date.now() + 24 * 3600 * 1000), // 24 hours

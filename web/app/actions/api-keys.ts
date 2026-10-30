@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
+import { nextId } from "@/lib/ids";
 import { revalidatePath } from "next/cache";
 import crypto from 'crypto';
 
@@ -22,6 +23,7 @@ export async function createApiKey(formData: FormData) {
 
         const apiKey = await prisma.apiKey.create({
             data: {
+                id: await nextId("apiKey"),
                 userId: user.id,
                 name,
                 key,

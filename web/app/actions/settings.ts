@@ -2,6 +2,7 @@
 
 import { auth } from "@/auth"
 import prisma from "@/lib/prisma"
+import { nextId } from "@/lib/ids";
 import { revalidatePath } from "next/cache"
 import { z } from "zod"
 
@@ -118,6 +119,7 @@ export async function createInbox(prevState: any, formData: FormData) {
         // Create inbox
         await prisma.inbox.create({
             data: {
+                id: await nextId("inbox"),
                 userId: user.id,
                 inboxId: validation.data,
                 name: name || `Inbox ${user.inboxes.length + 1}`

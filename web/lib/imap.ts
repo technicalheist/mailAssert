@@ -2,6 +2,7 @@
 import imaps from 'imap-simple';
 import { simpleParser } from 'mailparser';
 import prisma from '@/lib/prisma';
+import { nextId } from "@/lib/ids";
 
 const CONFIG = {
     IMAP: {
@@ -139,6 +140,7 @@ export async function syncEmails() {
             try {
                 await prisma.email.create({
                     data: {
+                        id: await nextId("email"),
                         inboxId: inbox.id,
                         messageId: parsed.messageId || `uid-${uid}`,
                         fromAddress: parsed.from?.text || '',
